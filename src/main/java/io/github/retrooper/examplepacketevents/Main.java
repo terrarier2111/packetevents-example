@@ -20,6 +20,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin implements PacketListener {
 
     @Override
+    public void onLoad() {
+        PacketEvents.load();
+    }
+
+    @Override
     public void onEnable() {
         PacketEvents.start(this);
         PacketEvents.getAPI().getEventManager().registerListener(this);
