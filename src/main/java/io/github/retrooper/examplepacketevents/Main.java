@@ -42,7 +42,7 @@ public class Main extends JavaPlugin implements PacketListener {
             double velocityY = velocityPacket.getVelocityY();
             double velocityZ = velocityPacket.getVelocityZ();
 
-            int ping = PacketEvents.getAPI().getPlayerUtilities().getPlayerPing(e.getPlayer());
+            int ping = PacketEvents.getAPI().getPlayerUtilities().getPing(e.getPlayer());
 
 
         } else if (e.getPacketId() == PacketType.Server.CHAT) {
