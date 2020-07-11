@@ -25,6 +25,8 @@ public class Main extends JavaPlugin implements PacketListener {
 
     @Override
     public void onEnable() {
+        //MUST be done before start(this);
+        PacketEvents.getSettings().setIdentifier("official_example");
         PacketEvents.start(this);
         PacketEvents.getAPI().getEventManager().registerListener(this);
     }
@@ -42,7 +44,7 @@ public class Main extends JavaPlugin implements PacketListener {
             double velocityY = velocityPacket.getVelocityY();
             double velocityZ = velocityPacket.getVelocityZ();
 
-            int ping = PacketEvents.getAPI().getPlayerUtilities().getPing(e.getPlayer());
+            int ping = PacketEvents.getAPI().getPlayerUtils().getPing(e.getPlayer());
 
 
         } else if (e.getPacketId() == PacketType.Server.CHAT) {
@@ -58,15 +60,15 @@ public class Main extends JavaPlugin implements PacketListener {
             switch (chat.getMessage()) {
                 case "pls jump":
                     WrappedPacketOutEntityVelocity velocity = new WrappedPacketOutEntityVelocity(e.getPlayer(), 0, 1, 0);
-                    PacketEvents.getAPI().getPlayerUtilities().sendPacket(e.getPlayer(), velocity);
+                    PacketEvents.getAPI().getPlayerUtils().sendPacket(e.getPlayer(), velocity);
                     break;
                 case "pls swing":
                     WrappedPacketOutAnimation anim = new WrappedPacketOutAnimation(e.getPlayer(), EntityAnimationType.SWING_MAIN_ARM);
-                    PacketEvents.getAPI().getPlayerUtilities().sendPacket(e.getPlayer(), anim);
+                    PacketEvents.getAPI().getPlayerUtils().sendPacket(e.getPlayer(), anim);
                     break;
                 case "what is my client version":
                     //ViaVersion or ProtocolSupport or ProtocolLib is required to do this
-                    final ClientVersion clientVersion = PacketEvents.getAPI().getPlayerUtilities().getClientVersion(e.getPlayer());
+                    final ClientVersion clientVersion = PacketEvents.getAPI().getPlayerUtils().getClientVersion(e.getPlayer());
                     if (clientVersion == ClientVersion.ACCESS_FAILURE) {
                         //ViaVersion or ProtocolSupport or ProtocolLib could not be found
                     } else {
@@ -76,7 +78,7 @@ public class Main extends JavaPlugin implements PacketListener {
                 case "give me abilities":
                     //arguments: vulnerable, isFlying, allowFlight, canBuildInstantly, flySpeed, walkSpeed
                     WrappedPacketOutAbilities abilities = new WrappedPacketOutAbilities(true, false, true, false, 10, 2);
-                    PacketEvents.getAPI().getPlayerUtilities().sendPacket(e.getPlayer(), abilities);
+                    PacketEvents.getAPI().getPlayerUtils().sendPacket(e.getPlayer(), abilities);
                     break;
             }
         }
